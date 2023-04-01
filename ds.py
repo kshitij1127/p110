@@ -2,6 +2,7 @@ import statistics
 import csv
 import pandas as pd 
 import random
+import plotly.figure_factory as ff 
 
 df = pd.read_csv("medium_data.csv")
 data = df["reading_time"].tolist()
@@ -22,7 +23,10 @@ def randomset_ofmean(counter):
     mean = statistics.mean(dataset)
     return mean
 
-def avg(mean_list):
+def showfig(mean_list):
+    df = mean_list
+    fig = ff.create_distplot([df], ["temp"], show_hist=False)
+    fig.show()
     m = statistics.mean(mean_list)
     print("The mean of the sampled data from the file is: ", m)
 
@@ -39,7 +43,7 @@ def setup():
     for i in range(1, 1000):
         setofmeans = randomset_ofmean(100)
         meanlist.append(setofmeans)
-    avg(meanlist)
+    showfig(meanlist)
 
 standard_deviation()
 setup()
